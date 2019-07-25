@@ -1,0 +1,92 @@
+
+
+/*footer*/
+
+.footer {
+	background-color:#121212;
+   	padding:20px ;
+    display: block;
+    bottom:0;
+	width:100%; 
+}
+.footer-navigation li:first-child{
+	font-size:20px;
+	float:left; 
+	color:white;
+}
+.footer-navigation li a{
+	float:left;
+	color:#999999;
+	text-decoration: none;
+}
+.footer-navigation li a:hover{
+	color:white;
+}
+
+.footer-navigation{ 
+	list-style-type: none;
+	overflow: hidden;
+} 
+.footer-left{
+	color: white;
+	text-align: left; 
+	padding: 2vh 5vw ;
+} 
+.extend-footer .list-group-item{
+	background-color: transparent;
+	border:none;
+	color:#999999;
+	text-align: left;
+	padding: 3px 0;
+}
+
+.extend-footer .list-group-item:hover{ 
+	color:white; 
+}
+
+.extend-icon{
+	position: absolute;
+	right:20%;
+	top:5px;
+	color: #999999;
+
+}
+
+.rotateForward{
+    animation: rotateCircle 0.3s  forwards; 
+    animation-direction: alternate;
+}
+
+.rotateBackward{
+    animation: rotateCircleBack 0.3s  forwards; 
+    animation-direction: alternate;
+}
+
+@media (max-width: 991px) {
+	.extend-footer {
+		display: none;
+	
+	} 
+	 
+	.footer{
+		padding-left:0;
+	}
+}
+ 
+
+@keyframes rotateCircle{
+    from{
+
+    }
+    to{
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes rotateCircleBack{
+    from{  
+    }
+    to{
+        transform: rotate(-90deg);
+    }
+}

@@ -1,0 +1,129 @@
+
+
+.my-nav {
+    background-color: #121212;
+}
+
+.logo {
+    color: white;
+}
+ 
+.my-input-group {
+    width: calc(100vw - 30vw);
+}
+.content-input-search {
+    border-radius: 5px !important;
+    padding-left: 36px;
+    background-color: #e2e2e2;
+}
+
+.btn-header {
+    color: white;
+    padding: 7px 25px !important;
+}
+
+.btn-header:first-child {
+    border-radius: 25px !important;
+    border: 1px solid #28a745; 
+    padding: 10px 45px !important;
+    color: white; 
+}
+
+.btn-header:hover {
+    color: white;
+}
+
+.navbar-toggler {
+    opacity: 0.8 !important;
+}
+.logo-name {
+    font-family: 'Cute Font', monospace;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 2px;
+    margin-left: 7px;
+}
+
+.my-nav-filter {
+    justify-content: center !important;
+    align-items: center;
+    background-color: transparent;
+    width: 76vw !important;
+}
+
+.my-nav-filter-large {
+    display: none;
+}
+
+.path-filter {
+    text-decoration: none; 
+    color: white !important; 
+    font-size: 13px;  
+    
+    margin:0 15px;
+    /* padding: 0 20% 0 20%; */
+}
+
+.dropdown-toggle {
+    text-decoration: none; 
+    color: white !important; 
+    font-size: 13px;  
+    
+    margin:0 15px;
+    /* padding: 0 20% 0 20%; */
+}
+
+.btn-navbar {
+    position: absolute;
+    right: 1.5%;
+}
+
+.navbar-toggler {
+    background-color: white !important;
+    opacity: 0.6;
+}
+
+.path-filter:hover {
+    opacity: 1;
+    color: white !important;
+}
+
+.search-icon {
+    width: 2vh;
+    height: 2vh;
+    top: 44%;
+    position: absolute;
+    right: 3%;
+    z-index: 99;
+}
+
+@media (max-width: 1265px) {
+    .my-input-group {
+        margin: 10px 0;
+        width: calc(100vw - 32vw);
+    }
+}
+
+@media (max-width: 1145px) {
+    .my-input-group {
+        margin: 10px 0;
+        width: calc(100vw - 40vw);
+    }
+}
+
+@media (max-width: 991px) {
+    .my-input-group {
+        width: 100%;
+    }
+    .my-nav-filter {
+        display: none;
+    }
+    .my-nav-filter-large {
+        display: block;
+    }
+    .btn-navbar {
+        display: inline-flex;
+        position: relative;
+        right: 0;
+    }
+}

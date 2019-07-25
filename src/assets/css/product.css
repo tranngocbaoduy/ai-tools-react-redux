@@ -1,0 +1,16 @@
+.product{
+    padding:0; 
+    border-radius:0 !important;
+    text-align: center;
+    padding:20px;
+}
+
+.product:hover{
+    -webkit-box-shadow: 0px 3px 26px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 26px -8px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 26px -8px rgba(0,0,0,0.75);
+}
+
+.product-item{
+    margin:3px;
+}

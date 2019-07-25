@@ -1,0 +1,33 @@
+.common-dash-board{
+    width:'100%';
+    height:'100%';
+    font-family: 'Raleway', sans-serif;
+	font-size: 15px;
+}
+
+.dash-board{
+    margin: 0%;
+    width: 100%; 
+}
+.list-group-item{
+    border-radius:0 !important;
+}
+
+.title-dash-board{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size:27px;
+    margin:20px;
+}
+.list-group-item{
+    opacity: 0.6;
+    border:0px !important;
+}
+.list-group-item:hover{
+    background-color:#cfcccc;
+    opacity: 1;
+}
+
+.content-dash-board{
+    font-family: 'Raleway', sans-serif;
+}

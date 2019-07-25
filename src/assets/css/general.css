@@ -1,0 +1,46 @@
+.row {
+    margin:0;
+    padding: 0;
+}
+
+.general{
+    font-family: 'Raleway', sans-serif ;
+	font-size: 15px;
+}
+
+
+.my-alert{
+    animation: hide 5s forwards ease-out;  
+}
+.social-facebook{
+    border-radius: 50%;
+    background-color: blue;
+    color:white;
+    font-size: 15px;
+    height:40px;
+    width:40px;
+    margin:5px;
+}
+
+.social-google{
+    border-radius: 50%;
+    background-color: red;
+    color:white;
+    font-size: 15px;
+    height:40px;
+    margin:5px;
+    width:40px;
+}
+
+@keyframes hide{
+    0%{
+
+    }
+    50%{
+        opacity: 50; 
+    }
+    100%{
+        opacity: 0;
+        display: none !important;
+    }
+}
