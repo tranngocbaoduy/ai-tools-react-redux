@@ -33,9 +33,9 @@
     "validator": "^11.0.0"
   },
   "scripts": {
-    "start": "set HTTPS=true&&react-scripts start",
-    "build": "set HTTPS=true&&react-scripts build",
-    "test": "set HTTPS=true&&react-scripts test",
+    "start": "HTTPS=true react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
