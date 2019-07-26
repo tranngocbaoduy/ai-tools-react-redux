@@ -58,7 +58,7 @@ class LoginFB extends React.Component {
             <div style={{margin:0}}>
                 {   text ? 
                     <FacebookLogin 
-                        appId="566965347166336"
+                        appId="396549384292756"
                         autoLoad={false}
                         fields="name,email,picture"
                         scope="public_profile"
@@ -70,12 +70,11 @@ class LoginFB extends React.Component {
                     />
                 :
                     <FacebookLogin
-                        appId="566965347166336"
+                        appId="396549384292756"
                         autoLoad={false}
                         fields="name,email,picture" 
                         scope="public_profile,email"
                         callback={responseFacebook}
-                        redirectUri="https://aitools.herokuapp.com/login"
                         data-logout-link="true" 
                         size="small"
                         textButton=""
