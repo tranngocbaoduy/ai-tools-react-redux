@@ -39,21 +39,22 @@ class ResultSearchProduct extends Component {
     return (
       <div className="general">  
         <Row style={{padding: '25px'}} key='row-ad'>
-            {items && items.map(item=> (
-              <Col lg={3} className="product" sm={4} height="80vh" key={item.ad_id+'out'}>
-                <LazyLoad key={item.ad_id}
-                          height={500}
-                          offset={[-200,200]} 
-                          placeholder={
-                          <div>
-                            <Spinner as="span" size="sm" animation="grow" variant="danger"/>
-                            <Spinner as="span" size="sm" animation="grow" variant="danger"/>
-                            <Spinner as="span" size="sm" animation="grow" variant="danger"/>
-                          </div>}>
-                        <Product data={item}></Product>
-                </LazyLoad>
-              </Col>
-            ))}
+            {items && items.map(item=> 
+              item.snap_shot.original_image_url !== "original_image_url" &&
+                <Col lg={3} className="product" sm={4} height="80vh" key={item.ad_id+'out'}>
+                  <LazyLoad key={item.ad_id}
+                            height={500}
+                            offset={[-200,200]} 
+                            placeholder={
+                            <div>
+                              <Spinner as="span" size="sm" animation="grow" variant="danger"/>
+                              <Spinner as="span" size="sm" animation="grow" variant="danger"/>
+                              <Spinner as="span" size="sm" animation="grow" variant="danger"/>
+                            </div>}>
+                          <Product data={item}></Product>
+                  </LazyLoad>
+                </Col> 
+            )}
         </Row>
       </div> 
     )

@@ -161,13 +161,7 @@ class Product extends React.Component {
                             </Row>
                             
                             <Row className="show-grid">
-                                {data.url_page !=='url_page'?
-                                    <span>
-                                        <a className="product-item" href={data.url_page}>{data.url_page}</a><br/>
-                                    </span>
-                                    :
-                                    <span></span>
-                                }  
+                                { data.snap_shot.link_url !=='link_url' && <a className="product-item" href={data.snap_shot.link_url}>{data.snap_shot.link_url}</a> }  
                             </Row>  
                         </Container>
                     </Modal.Body>

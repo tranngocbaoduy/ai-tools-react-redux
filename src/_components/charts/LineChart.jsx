@@ -1,66 +1,72 @@
 import React from 'react'; 
-import { connect } from 'react-redux';
-// import { userActions } from '../_actions';
-import {Form,Button,Alert,FormControl,Image} from 'react-bootstrap'
-import '../../assets/css/general.css'  
-import {curveCatmullRom} from 'd3-shape'; 
+import { connect } from 'react-redux'; 
+import '../../assets/css/general.css'   
 import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
-import LabelComponent from "./LabelComponent";
+import HighchartsReact from 'highcharts-react-official' 
 
 class LineChart extends React.Component {
     constructor(props) {
         super(props); 
         
         this.state = {
-            useCanvas: true
+            data: this.props.data!=='age_data'?JSON.parse(this.props.data):[]
         }; 
         this.afterChartCreated = this.afterChartCreated.bind(this);
-    } 
-    
-    getRandomData() {
-      const randomYData = [...new Array(20)].map(() =>
-        Math.round(Math.random() * 40)
-      );
-      return randomYData.map((val, idx) => {
-        return {x: idx, y: val};
-      });
-    }
+        this.transData = this.transData.bind(this);
+    }  
 
     afterChartCreated(chart) {
       this.internalChart = chart;
       this.forceUpdate();
+    } 
+    
+    transData(type){ 
+      // check data is exist
+      const { data } = this.state
+      return data.map((val) => { 
+        return Math.round(val[type]*100);
+      }); 
     }
   
+    buildxAxis(){
+      const { data } = this.state 
+      return data.map((val) => {
+        return val.age_range;
+      })
+    }
+
     render(){ 
         const options = {
           title: {
-            text: 'My chart'
+            text: 'Age Chart'
+          },
+          xAxis: [{
+              categories: this.buildxAxis()
+          }],
+          yAxis: {
+            title: {
+                text: 'Age Percentage'
+            }
           },
           series: [{
-            data: [{x:1,y:1},{x:1,y:4},{x:1,y:6}]
+            name:'Female',
+            data: this.transData('female'),
+            type: 'areaspline'
           },
           {
-            data: [{x:3,y:2},{x:6,y:2},{x:9,y:2}]
+            name:'Male',
+            data: this.transData('male'),
+            type: 'areaspline',
           }]
-        } 
-        const chart = this.internalChart,
-        customLabels = [];
-  
-        // if (chart && chart.xAxis[0]) {
-        //   Highcharts.objectEach(chart.xAxis[0].ticks, function(tick) {
-        //     customLabels.push(<LabelComponent key={tick+chart.xAxis[0].ticks} tick={tick} />);
-        //   });
-        // }
+        }  
         return (
           <div>
             <HighchartsReact 
               key={this.props.id}
               highcharts={Highcharts}
               options={options}
-              callback={this.afterChartCreated}
-            />
-            {customLabels}
+              callback={this.afterChartCreated} 
+            />  
           </div>
         );
     }
