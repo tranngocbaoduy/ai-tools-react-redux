@@ -1,7 +1,7 @@
-import Client from 'shopify-buy';
+// import Client from 'shopify-buy';
 
-const client = Client.buildClient({
-  domain: 'aitoolspy.myshopify.com',
-  storefrontAccessToken: 'your-storefront-access-token'
-});
+// const client = Client.buildClient({
+//   domain: 'aitoolspy.myshopify.com',
+//   storefrontAccessToken: 'your-storefront-access-token'
+// });
 

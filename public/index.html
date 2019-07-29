@@ -39,13 +39,14 @@
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+   
     <title>AITools App</title>
 </head>
 
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <div id="fb-root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -58,8 +59,8 @@
     -->
 
     <!-- facebook script login -->
-    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script  async defer >
+    <!-- <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script> -->
+    <!-- <script>
       // This is called with the results from from FB.getLoginStatus().
       function statusChangeCallback(response) {
         console.log('statusChangeCallback');
@@ -135,9 +136,26 @@
             'Thanks for logging in, ' + response.name + '!';
         });
       }
-    </script>
+    </script> -->
     
     
 </body>
+<script>
+  window.fbAsyncInit = function() {
+      FB.init({
+      appId  : '396549384292756',
+      status : true, // check login status
+      cookie : true, // enable cookies to allow the server to access the session
+      xfbml  : true, // parse XFBML
+      version : 'v3.3'
+      });
+  };
 
+  (function() {
+      var e = document.createElement('script');
+      e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+      e.async = true;
+      document.getElementById('fb-root').appendChild(e);
+  }());
+  </script>
 </html>

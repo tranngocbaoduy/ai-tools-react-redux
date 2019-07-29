@@ -24,7 +24,7 @@ class App extends Component {
                     <Route path="/payment" component={PaymentPage} />
                     <Route path="/admin" component={AdminLoginPage} /> 
                     <PrivateRoute path='/dashboard' component={AdminPage}/> 
-                    <PrivateRoute path='/ads/:id' component={ProductPage}/> 
+                    <PrivateRoute path='/insight/:id' component={ProductPage}/> 
                 </div>
             </Router>
         </div> 

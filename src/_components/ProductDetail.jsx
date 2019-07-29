@@ -8,8 +8,7 @@ import { productActions } from '../_actions/product.actions'
 import Product from './Product'
 import LazyLoad from 'react-lazyload'
 
-
-class ResultSearchProduct extends Component {
+class ProductDetail extends Component {
 
   constructor(props) {
     super(props); 
@@ -67,5 +66,5 @@ function mapStateToProps(store) {
   };
 }
 
-const connectedResultSearchProduct = connect(mapStateToProps)(ResultSearchProduct);
-export { connectedResultSearchProduct as ResultSearchProduct }; 
+const connectedProductDetail = connect(mapStateToProps)(ProductDetail);
+export { connectedProductDetail as ProductDetail }; 

@@ -39,12 +39,12 @@ export const userService = {
 // }
 
 async function login(info, type){ 
+    console.log(info)
     const requestOptions = {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
-            'Referrer-Policy': 'origin-when-cross-origin',
-            'Access-Control-Allow-Origin': "*",
+            // 'Access-Control-Allow-Origin': "*",
         }
     };
     return await axios.post( domain + 'login',JSON.stringify({info, type} ), requestOptions)

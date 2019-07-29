@@ -60,6 +60,7 @@ async function getAll(page, token){
     return await axios.post(domain + 'get_products',JSON.stringify({page, token}), requestOptions)
             .then(handleResponse)
             .then(data => { 
+                console.log(data.products)
                 return data.products
             });
 }
@@ -72,8 +73,9 @@ async function getById(id, token) {
     console.log(id, token)
     return await axios.post(domain + 'get_product',JSON.stringify({id, token}), requestOptions)
             .then(handleResponse)
-            .then(product => { 
-                return product
+            .then(data => { 
+                console.log(data.product)
+                return data.product
             });
 }
 

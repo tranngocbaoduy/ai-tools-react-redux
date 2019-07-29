@@ -29,6 +29,11 @@ class LoginFB extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSDKLoaded = this.handleSDKLoaded.bind(this);
     } 
+ 
+    componentWillMount(){
+
+        
+    }
 
     handleSubmit() {
         this.setState({ submitted: true });
@@ -102,6 +107,7 @@ class LoginFB extends React.Component {
                 //     </Login>
                 // </FacebookProvider>
                 }
+                
         </div>      
     )
     }

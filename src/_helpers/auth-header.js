@@ -8,13 +8,4 @@ export function authHeader() {
         return {};
     }
 }
-
-export function header(){
-    return { 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json', 
-        'Referrer-Policy': 'origin-when-cross-origin', 
-        'Access-Control-Allow-Headers':'Authorization',
-        'Access-Control-Allow-Origin': '*', 
-    }
-}
+ 

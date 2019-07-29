@@ -10,8 +10,7 @@ class Product extends React.Component {
             modalShow: false
         }; 
     }
- 
-
+  
     buildTag(){
         const { data } = this.props;
         const variant = [
@@ -27,7 +26,7 @@ class Product extends React.Component {
         if (data.tags){
             data.tags.forEach(element => {  
                 _content.push(
-                    <Badge key={data.id} variant={variant[Math.floor(Math.random() * 5)]}>{element}</Badge>
+                    <Badge key={data._id['$oid']+element} variant={variant[Math.floor(Math.random() * 5)]}>{element}</Badge>
                 )
             });
         }
@@ -72,14 +71,15 @@ class Product extends React.Component {
         }
        
         return _content;
-    }
+    } 
     
     render() {
         const { data } = this.props;
-        let {modalShow} = this.state;   
+        let {modalShow} = this.state;  
+        const { started_date}  = new Date(parseInt(data.started_date)*1000)  
         return (
-            <div key={data.id} onClick={() => this.setState({modalShow:true})}>   
-                <h5 className="product-item"><img src={data.image_author} alt="" style={{width:'30px', height:'30px', borderRadius:'100%'}} /> <i>{data.author}</i></h5>
+            <div key={data._id['$oid']+'in'} onClick={() => this.setState({modalShow:true})}>   
+                <h5 className="product-item"><img src={data.snap_shot.page_profile_picture_url} alt="" style={{width:'30px', height:'30px', borderRadius:'100%'}} /> <i>{data.snap_shot.page_name}</i></h5>
                 {data.tags && 
                    this.buildTag()
                 } 
@@ -88,15 +88,15 @@ class Product extends React.Component {
                     <div>no</div>
                 }
                 <hr></hr>
-                {data.title !=='title'?
-                    <h3 className="product-item"><strong>{data.title}</strong></h3>
+                {data.snap_shot.title !=='title'?
+                    <h3 className="product-item"><strong>{data.snap_shot.title}</strong></h3>
                 :
                     <span></span>
                 }
-                <i className="product-item">{data.date_posted}</i>
-                <img className="product-item" src={ data.url_image} alt="" /> 
+                <i className="product-item">{started_date}</i>
+                <img className="product-item" src={ data.snap_shot.original_image_url} alt="" /> 
                 <hr></hr>
-                <p className='product-item'>{data.description.substring(0,300)} <a href={'/ads/'+data.id}> read more ...</a><br/></p>  
+                <p className='product-item'>{data.snap_shot.link_description.substring(0,300)} <a href={'/insight/'+data._id['$oid']}> read more ...</a><br/></p>  
                 {/* <span className="product-item">{data.like} {data.brand}</span><br/> */}
                 <hr></hr>
                 {data.url_page !=='url_page'?
@@ -105,15 +105,14 @@ class Product extends React.Component {
                 </span>
                 :
                 <span></span>
-                }  
-                {/* <Button className='product-item' variant='info'>Detail Item</Button>  */} 
+                }   
 
                  <Modal  show={modalShow} onHide={() => this.setState({modalShow:false})} aria-labelledby="contained-modal-title-vcenter" size="lg">
                     <Modal.Header closeButton={() => this.setState({modalShow:false})} >
                     <Modal.Title id="contained-modal-title-vcenter">
-                    <h5 className="product-item"><img src={data.image_author} alt="" style={{textAlign:'center',width:'30px', height:'30px', borderRadius:'100%'}} /> <i>{data.author}</i></h5>
-                        {data.title !=='title'?
-                            <h3 className="product-item"><strong>{data.title}</strong></h3>
+                    <h5 className="product-item"><img src={data.snap_shot.original_image_url} alt="" style={{textAlign:'center',width:'30px', height:'30px', borderRadius:'100%'}} /> <i>{data.snap_shot.page_name}</i></h5>
+                        {data.snap_shot.title !=='title'?
+                            <h3 className="product-item"><strong>{data.snap_shot.title}</strong></h3>
                         :
                             <span></span>
                         }
@@ -141,10 +140,10 @@ class Product extends React.Component {
                             <hr></hr>
                             <Row className="show-grid">
                                 <Col xs={4} md={5}> 
-                                    <img className="product-item" src={ data.url_image} alt="" /> 
+                                    <img className="product-item" src={ data.snap_shot.original_image_url} alt="" /> 
                                 </Col>
                                 <Col xs={8} md={7}>
-                                    <i className="product-item">{data.date_posted}</i>
+                                    <i className="product-item">{started_date}</i>
                                     <XYPlot margin={{top:30, bottom: 30}} xType="ordinal" width={300} height={300}>
                                         <VerticalGridLines />
                                         <HorizontalGridLines />
@@ -152,27 +151,13 @@ class Product extends React.Component {
                                         <YAxis />
                                         {data && data.age_data && 
                                             this.buildAgeData()
-                                        }
-                                        {/* <VerticalBarSeries
-                                            data={[
-                                                {x: 'Apples', y: 10},
-                                                {x: 'Bananas', y: 5},
-                                                {x: 'Cranberries', y: 15}
-                                            ]}
-                                        />
-                                        <VerticalBarSeries
-                                            data={[
-                                                {x: 'Apples', y: 12},
-                                                {x: 'Bananas', y: 2},
-                                                {x: 'Cranberries', y: 11}
-                                            ]}
-                                        /> */}
+                                        } 
                                     </XYPlot>
                                 </Col>
                             </Row>
                             <hr></hr>
                             <Row className="show-grid"> 
-                                {data.description.substring(0,300)}   
+                                {data.snap_shot.link_description.substring(0,300)}   
                             </Row>
                             
                             <Row className="show-grid">
@@ -183,7 +168,7 @@ class Product extends React.Component {
                                     :
                                     <span></span>
                                 }  
-                            </Row>
+                            </Row>  
                         </Container>
                     </Modal.Body>
                     <Modal.Footer>
@@ -197,3 +182,4 @@ class Product extends React.Component {
 }
 
 export default Product;
+
