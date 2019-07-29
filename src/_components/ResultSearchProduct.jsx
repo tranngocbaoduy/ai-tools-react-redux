@@ -41,7 +41,7 @@ class ResultSearchProduct extends Component {
         <Row style={{padding: '0px',margin:0}} key='row-ad'>
             {items && items.map(item=> 
               item.snap_shot.original_image_url !== "original_image_url" &&
-                <Col lg={3} style={{margin:'10px 0 10px 0'}} key={item.ad_id+'out'}>
+                <Col lg={3} md={3} xs={4} style={{margin:'10px 0 10px 0'}} key={item.ad_id+'out'}>
                   <LazyLoad key={item.ad_id}
                             height={500}
                             offset={[-200,200]} 

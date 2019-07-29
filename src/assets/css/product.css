@@ -1,7 +1,6 @@
 .product{
     padding:0; 
-    border-radius:0 !important; 
-    padding:20px;
+    border-radius:0 !important;  
 }
 
 .product:hover{
