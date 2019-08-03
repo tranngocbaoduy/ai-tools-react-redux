@@ -53,6 +53,7 @@ export function products(state = initialState, action) {
       }
       return {
         ...state, 
+        loading:true,
         query: action.query,
         loadingProduct: true
       };
@@ -60,6 +61,7 @@ export function products(state = initialState, action) {
       return { 
         ...state,
         query: action.query,
+        loading:false,
         items: state.items.length === 0?action.products:state.items.concat(action.products) 
       };
     case productConstants.GETPER_FAILURE:

@@ -49,12 +49,7 @@ class ResultSearchProduct extends Component {
       }
     } 
     return ( 
-      <div className="general">  
-          { loading &&
-            <div style={{textAlign:"center", margin:'1vw'}}>
-              <Spinner as={Row} size="sm" animation="border" variant="success"/> 
-            </div>
-          }
+      <div className="general">   
           { !loading &&  drop && 
             <Alert variant='success' style={{borderRadius:'0%'}} className="help-block"><b>We found {quantity} items</b></Alert> 
           }
@@ -76,6 +71,13 @@ class ResultSearchProduct extends Component {
                 </div> 
             )}
         </Row>
+          { loading && 
+            <div style={{textAlign:"center", margin:'1vw'}}>
+              <Spinner as={Row} size="sm" animation="grow" variant="success"/> 
+              <Spinner as={Row} size="sm" animation="grow" variant="success"/> 
+              <Spinner as={Row} size="sm" animation="grow" variant="success"/> 
+            </div>
+          }
       </div> 
     )
   }
