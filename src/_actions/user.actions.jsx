@@ -19,8 +19,7 @@ function login(info, type) {
         dispatch(request({ info }));
         userService.login(info, type)
             .then(
-                user => { 
-                    
+                user => {  
                     let pathname = history.location.pathname === '/login' ? '/':history.location.pathname 
                     if( pathname === '/admin' && user.role === 'admin'){
                         pathname = '/dashboard'

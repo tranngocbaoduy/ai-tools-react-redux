@@ -1,5 +1,6 @@
 .fliter-header {
-    transition: all 2s;
+    background-color:#28a745; 
+    /* transition: all 2s; */
 }
 
 .filter-my-nav-around {
@@ -50,6 +51,12 @@
     padding-left: 33px;
     border-radius: 10px !important;
 }
+.filter-form{
+    color:white;
+    border-radius:0;
+    margin:1vw 1vw 0 1vw;
+    width:100%; 
+}
 
 .my-input-group {
     width: 20vw;
@@ -58,6 +65,24 @@
 .filter-search-auth {
     display: flex;
     margin: 10px;
+}
+
+.icon{
+    width: 2vh;
+    height: 2vh;
+    top: 44%;
+    left:4%;
+    position: absolute; 
+    z-index: 2;
+}
+ 
+.search-icon {
+    width: 2vh;
+    height: 2vh;
+    top: 44%;
+    position: absolute;
+    right: 3%;
+    z-index: 2;
 }
 
 .filter-btn-navbar {

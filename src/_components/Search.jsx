@@ -12,6 +12,8 @@ class Search extends Component {
     super(props); 
     this.state = {
       query: '',
+      page: 1,
+      per_page:10,
       submittedSearch: false
     } 
     this.setBackground = this.setBackground.bind(this); 
@@ -34,15 +36,16 @@ class Search extends Component {
     this.setBackground();
   }
 
-  handleSubmitSearch(e) {
+  handleSubmitSearch = (e) => {
+    console.log(123)
     e.preventDefault(); 
-    this.setState({ submittedSearch: true });
-    const { query } = this.state;
-    const { dispatch } = this.props;
-    if (query) {
-        dispatch(productActions.search(query));
+    this.setState({ submittedSearch: true }); 
+    const { dispatch, user } = this.props;
+    const { page, per_page, query  } = this.state; 
+    if(user && user.token){ 
+      dispatch(productActions.search(query, page, per_page, user.token));
     }
-  }
+}
 
   handleOnKeyUp(e) {
       const { name, value } = e.target;
@@ -73,9 +76,11 @@ class Search extends Component {
 
 function mapStateToProps(store) {
   const { query } = store.products;
+  const { user } = store.authentication;
   // console.log(state.authentication) 
   return {
-    query:query
+    query,
+    user
   };
 }
 

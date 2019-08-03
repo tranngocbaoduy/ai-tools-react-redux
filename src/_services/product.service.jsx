@@ -7,7 +7,7 @@ export const productService = {
     getAll,
     errors,
     // register,
-    // getAll,
+    getPerPage,
     getById,
     // update,
     // delete: _delete
@@ -40,28 +40,39 @@ function errors(){
     return {message: 'Server isn\'t working, please try again after few minutes'}
 }
 
-async function search(query){  
+async function search(query, page, per_page, token){  
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
     };
-    return await axios.post(domain + 'search',JSON.stringify({query}), requestOptions)
+    return await axios.post(domain + 'get_product_per_page',JSON.stringify({query, page, per_page, token}), requestOptions)
             .then(handleResponse)
             .then(data => { 
-                return data.products;
+                return data;
             });
 }
 
-async function getAll(page, token){ 
+async function getAll(token){ 
     const requestOptions = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     };
-    return await axios.post(domain + 'get_products',JSON.stringify({page, token}), requestOptions)
+    return await axios.post(domain + 'get_products',JSON.stringify({token}), requestOptions)
             .then(handleResponse)
-            .then(data => { 
-                console.log(data.products)
-                return data.products
+            .then(data => {  
+                return data
+            });
+}
+
+async function getPerPage(query, page, per_page,token){ 
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    };
+    return await axios.post(domain + 'get_product_per_page',JSON.stringify({query, token, page, per_page}), requestOptions)
+            .then(handleResponse)
+            .then(data => {  
+                return data
             });
 }
 
@@ -73,9 +84,8 @@ async function getById(id, token) {
     console.log(id, token)
     return await axios.post(domain + 'get_product',JSON.stringify({id, token}), requestOptions)
             .then(handleResponse)
-            .then(data => { 
-                console.log(data.product)
-                return data.product
+            .then(data => {  
+                return data
             });
 }
 

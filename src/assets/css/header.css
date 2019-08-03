@@ -88,15 +88,6 @@
     color: white !important;
 }
 
-.search-icon {
-    width: 2vh;
-    height: 2vh;
-    top: 44%;
-    position: absolute;
-    right: 3%;
-    z-index: 99;
-}
-
 @media (max-width: 1265px) {
     .my-input-group {
         margin: 10px 0;

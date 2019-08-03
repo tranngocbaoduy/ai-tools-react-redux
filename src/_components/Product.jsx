@@ -1,7 +1,7 @@
 import React from 'react';
 import { Badge, Modal, Media, Card, Image, Container, Row, Col, Button } from 'react-bootstrap' 
 import {XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalBarSeries, VerticalGridLines} from 'react-vis';
-
+// import { LazyLoadImage } from 'react-lazy-load-image-component';
 class Product extends React.Component {
     constructor(props) {
         super(props); 
@@ -12,6 +12,7 @@ class Product extends React.Component {
     }
   
     buildTag(){
+       
         const { data } = this.props;
         const variant = [
             'primary',
@@ -33,7 +34,7 @@ class Product extends React.Component {
         return _content;
     }
 
-    buildAgeData(){
+    buildAgeData(){ 
         const { data } = this.props; 
         let _content = [];
         try{
@@ -82,7 +83,17 @@ class Product extends React.Component {
                 <Card className="product" key={data._id['$oid']+'in'} style={{margin:0,padding:0,borderRadius:0}}> 
                     <Card.Body style={{padding:'0px'}}>
                         <Card.Img onClick={() => this.setState({modalShow:true})} style={{width:'100%',height:'35vh',borderRadius:'0%',marginTop:'0px'}} src={ data.snap_shot.original_image_url} alt="" /> 
-                        {/* <Card.Title>
+                        
+                        {/* <LazyLoadImage
+                            alt=''
+                            height='100'
+                            src={data.snap_shot.original_image_url}
+                            effect="blur" 
+                            delayTime="500"
+                            // use normal <img> attributes as props
+                            width='35px'
+                             /> */}
+                             {/* <Card.Title>
                             {data.snap_shot.title !=='title' &&
                                 <h4  style={{fontSize:'10px'}}><strong>{data.snap_shot.title}</strong></h4> 
                             } 
@@ -107,19 +118,27 @@ class Product extends React.Component {
                                 { data.tags && this.buildTag() }  */}
                                 <span>
                                     <Image alt="" src="./images/icons/link.svg" style={{width:'12px', height:'12px'}}/>
-                                    <a style={{fontSize:'11px'}} href={data.snap_shot.link_url}> {data.snap_shot.link_url.substring(12,45)}</a>  
+                                    <a style={{fontSize:'11px'}} href={data.snap_shot.link_url}>{data.snap_shot.link_url.length >= 25?data.snap_shot.link_url.slice(0, 20) + "…" + data.snap_shot.link_url.slice(-5):data.snap_shot.link_url }</a>  
                                 </span><br/>
                                 <span>
                                     <Image alt="" src="./images/icons/identification.svg" style={{width:'12px', height:'12px'}}/>
-                                    <a style={{fontSize:'11px'}} href={data.snap_shot.page_profile_uri}> {data.snap_shot.page_profile_uri.substring(12)}</a>  
+                                    <a style={{fontSize:'11px'}} href={data.snap_shot.page_profile_uri}> {data.snap_shot.page_profile_uri.length >= 25?data.snap_shot.page_profile_uri.slice(0, 20) + "…" + data.snap_shot.page_profile_uri.slice(-5):data.snap_shot.page_profile_uri }</a>  
                                 </span><br/>
                                 <span>
                                     <Image alt="" src="./images/icons/more.svg" style={{width:'12px', height:'12px'}}/>
                                     <span style={{fontSize:'11px'}}> {data.snap_shot.page_id}</span>  
                                 </span><br/>
                                 <span>
+                                    <Image alt="" src="./images/icons/more.svg" style={{width:'12px', height:'12px'}}/>
+                                    <span style={{fontSize:'11px'}}>Ad_id: {data.ad_id}</span>  
+                                </span><br/>
+                                <span>
                                     <Image alt="" src="./images/icons/pie-chart.svg" style={{width:'12px', height:'12px'}}/>
                                     <span style={{fontSize:'11px'}}> {started_date+' '+started_time}</span>  
+                                </span><br/>
+                                <span>
+                                    <Image alt="" src="./images/icons/enter.svg" style={{width:'12px', height:'12px'}}/>
+                                    <span style={{fontSize:'11px'}}> Page Name: {data.page_name}</span>  
                                 </span><br/>
                                 <span>
                                     <Image alt="" src="./images/icons/enter.svg" style={{width:'12px', height:'12px'}}/>
@@ -195,4 +214,3 @@ class Product extends React.Component {
 }
 
 export default Product;
-

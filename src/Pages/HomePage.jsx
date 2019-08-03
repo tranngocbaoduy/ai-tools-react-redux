@@ -8,19 +8,27 @@ class HomePage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { 
             content: this.buildContent()
         }
     }
+
+    componentDidUpdate(){
+        const { drop } = this.props  
+        if(drop){
+            window.jQuery('.form-search').hide()    
+        } 
+    }
+
     buildContent() { 
         let _content = [];  
-        _content.push(<Search key="mySearchBar"></Search>);
+        _content.push(<Search className="filter-hidden" key="mySearchBar"></Search>);
         _content.push(<Filter key='search' ></Filter>); 
         _content.push(<ResultSearchProduct  key='results'></ResultSearchProduct>); 
         return _content;
     }
 
-    render() {
+    render() {  
         return ( 
             <div>
                 <Page content = { this.state.content } ></Page> 
@@ -31,9 +39,10 @@ class HomePage extends Component {
 
 
 function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
+    const { drop } = state.products;
+   
     return {
-        loggingIn
+        drop
     };
 }
 

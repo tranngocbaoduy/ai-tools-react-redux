@@ -25,13 +25,13 @@ class Product extends React.Component {
     }
    
     componentWillReceiveProps(){ 
-        const { handleGet } = this.props;  
-        const { page } = this.state;
+        const { handleGet } = this.props;   
         if(handleGet){
             const { dispatch } = this.props;
             let user = JSON.parse(localStorage.getItem('user'));
+            console.log(user.token)
             if(user){ 
-                dispatch(productActions.getAll(page, user.token)); 
+                dispatch(productActions.getAll(user.token)); 
             } 
         }
          
@@ -45,41 +45,42 @@ class Product extends React.Component {
         }   
 
         const columns = [{
-            dataField: 'image_author',
+            dataField: 'snap_shot.page_profile_picture_url',
             text: 'Avatar',
             formatter: imageAuthorFormatter,
           },{
-            dataField: 'author',
+            dataField: 'snap_shot.page_name',
             text: 'Author',
-            filter: textFilter()
+            filter: textFilter(),
+            formatter: wordFormatter
           },  {
-            dataField: 'date_posted',
+            dataField: 'start_date',
             text: 'Date Posted',
-            filter: textFilter()
+            filter: textFilter(),
+            formatter: dateFormatter
           },{
-            dataField: 'title',
+            dataField: 'snap_shot.title',
             text: 'Title',
-            filter: textFilter()
+            filter: textFilter(),
+            formatter: wordFormatter
           },{
-            dataField: 'image_file',
+            dataField: 'snap_shot.resize_image_url',
             text: 'Image', 
             formatter: imageFileFormatter
           },{
-            dataField: 'description',
+            dataField: 'snap_shot.link_description',
             text: 'Description',
             filter: textFilter(),
-            formatter: descriptionFormatter
+            formatter: wordFormatter
           },{
-            dataField: 'url_page',
-            text: 'URL'
+            dataField: 'snap_shot.link_url',
+            text: 'URL',
+            formatter: urlFormatter
           },{
-            dataField: 'like',
-            text: 'Like'
-          },{
-            dataField: 'brand',
-            text: 'Brand',
+            dataField: 'snap_shot.page_profile_uri',
+            text: 'Profile URI',
             filter: textFilter(),
-            formatter: brandFormatter
+            formatter: urlFormatter
           }];
         return (
             <div>  
@@ -121,24 +122,37 @@ function imageFileFormatter(cell, row, rowIndex, formatExtraData) {
     );
 }
 
-function imageAuthorFormatter(cell, row, rowIndex, formatExtraData) {  
+function imageAuthorFormatter(cell, row, rowIndex, formatExtraData) {   
     return ( 
-        <img className="product-item" src={cell} alt="" /> 
+        <img className="avatar" src={cell} alt="" /> 
     );
 }
 
 
-function brandFormatter(cell, row, rowIndex, formatExtraData) {  
+function urlFormatter(cell, row, rowIndex, formatExtraData) { 
+    if (cell === 'link_url' || cell === 'page_profile_uri'){
+        cell = ''
+    }
+    const content = cell.length >= 30?cell.slice(0, 11) + "…" + cell.slice(-18):cell 
     return ( 
-        cell.substring(0,50)
+        <a href={cell}>{content}</a>
     );
 }
 
-function descriptionFormatter(cell, row, rowIndex, formatExtraData) {  
+function wordFormatter(cell, row, rowIndex, formatExtraData) {  
+    if( cell === 'link_description' || cell === 'title'){
+        cell = ''
+    }
     return ( 
         cell.substring(0,100)
     );
 }
+function dateFormatter(cell, row, rowIndex, formatExtraData) {   
+    return ( 
+        new Date(parseInt(cell)*1000).toLocaleDateString("en-US")
+    );
+}
+
 function mapStateToProps(store) {
     const { loggedIn,error } = store.authentication;  
     const { loadingProduct, items } = store.products 

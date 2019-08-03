@@ -8,9 +8,22 @@
     pointer-events: none;
 }
 
-.abc {
-    height: 200vh;
-    background-color: white;
+#scrollToTopBtn{ 
+    width: 50px;
+    background-color:#1986B1;
+    height: 50px; 
+    color: rgba(0,0,0,.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 1rem;
+    right: 1.5rem;
+    z-index: 2;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    border-color: rgba(0,0,0,.8) !important;
 }
 
 .App-header {

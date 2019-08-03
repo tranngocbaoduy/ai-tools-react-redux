@@ -1,13 +1,12 @@
 import React, { Component } from 'react'  
 import { connect } from 'react-redux'  
 import '../assets/css/search.css'
-import { Row, Col, Spinner} from 'react-bootstrap'
+import { Row, Alert, Spinner} from 'react-bootstrap'
 import '../assets/css/general.css' 
 import '../assets/css/product.css' 
 import { productActions } from '../_actions/product.actions' 
 import Product from './Product'
-import LazyLoad from 'react-lazyload'
-
+import LazyLoad from 'react-lazyload' 
 
 class ResultSearchProduct extends Component {
 
@@ -15,45 +14,66 @@ class ResultSearchProduct extends Component {
     super(props); 
     this.state = {
       page: 1, 
+      per_page: 10, 
     } 
     this.featureProduct = this.featureProduct.bind(this);
-  
+    this.loadMoreBottom = this.loadMoreBottom.bind(this);
   } 
 
-  featureProduct(){
-    const { dispatch } = this.props;
-    const { page } = this.state;
-    let user = JSON.parse(localStorage.getItem('user')); 
-    if(user){ 
-      dispatch(productActions.getAll(page, user.token));
+  featureProduct = () => {
+    const { dispatch, user, query } = this.props;
+    const { page, per_page } = this.state; 
+    if(user && user.token){ 
+      dispatch(productActions.getPerPage(query, page, per_page, user.token));
+    }
+  }
+
+  loadMoreBottom = () =>{ 
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      this.setState({
+        page:  this.state.page + 1
+      })
+      this.featureProduct() 
     }
   }
 
   componentDidMount(){
-    this.featureProduct()
+    this.featureProduct()  
   } 
 
-  render() {  
-    // const { content } = this.state;
-    const { items } = this.props;  
-    return (
+  render() {   
+    const { items, drop, quantity, loading} = this.props;  
+    window.onscroll = () =>{
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        this.loadMoreBottom()
+      }
+    } 
+    return ( 
       <div className="general">  
-        <Row style={{padding: '0px',margin:0}} key='row-ad'>
+          { loading &&
+            <div style={{textAlign:"center", margin:'1vw'}}>
+              <Spinner as={Row} size="sm" animation="border" variant="success"/> 
+            </div>
+          }
+          { !loading &&  drop && 
+            <Alert variant='success' style={{borderRadius:'0%'}} className="help-block"><b>We found {quantity} items</b></Alert> 
+          }
+        <Row style={{padding: '0px',margin:0}} key='row-ad' > 
             {items && items.map(item=> 
-              item.snap_shot.original_image_url !== "original_image_url" &&
-                <Col lg={3} md={3} xs={4} style={{margin:'10px 0 10px 0'}} key={item.ad_id+'out'}>
+              item.snap_shot.original_image_url !== "original_image_url" && 
+              // item.snap_shot.link_url !== "link_url" && 
+              // item.snap_shot.page_profile_uri !== "page_profile_uri" && 
+                <div style={{margin:'0.5%',width:'19%'}} key={item.ad_id+'out'}>
                   <LazyLoad key={item.ad_id}
                             height={500}
                             offset={[-200,200]} 
                             placeholder={
-                            <div>
-                              <Spinner as="span" size="sm" animation="grow" variant="danger"/>
-                              <Spinner as="span" size="sm" animation="grow" variant="danger"/>
-                              <Spinner as="span" size="sm" animation="grow" variant="danger"/>
+                            <div style={{textAlign:"center"}}>
+                              <Spinner as="span" size="sm" animation="border" variant="success"/> 
                             </div>}>
                           <Product data={item}></Product>
                   </LazyLoad>
-                </Col> 
+                </div> 
             )}
         </Row>
       </div> 
@@ -62,9 +82,15 @@ class ResultSearchProduct extends Component {
 } 
  
 function mapStateToProps(store) { 
-  const { items } = store.products; 
+  const { items, query, drop, quantity, loading } = store.products; 
+  const { user } = store.authentication; 
   return {
-    items
+    items,
+    user,
+    query,
+    drop,
+    quantity,
+    loading
   };
 }
 

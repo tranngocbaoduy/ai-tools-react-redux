@@ -9,18 +9,19 @@ export const productActions = {
     errors,
     getAll,
     getById,
+    getPerPage,
     // delete: _delete
 };
 
 
-function search(query) {
+function search(query, page, per_page, token) {
     return dispatch => {
         dispatch(request( query ));
         if(isExistToken()){
-            productService.search(query)
+            productService.search(query, page, per_page, token)
                 .then(
-                    product => {  
-                        dispatch(success(product)); 
+                    data => {  
+                        dispatch(success(query, data.quantity, data.products)); 
                     },
                     error => {
                         dispatch(failure(error.toString()));
@@ -31,45 +32,22 @@ function search(query) {
     };
 
     function request(query) { return { type: productConstants.SEARCH_REQUEST, query } }
-    function success(product) { return { type: productConstants.SEARCH_SUCCESS, product } }
+    function success(query, quantity, products) { return { type: productConstants.SEARCH_SUCCESS, query, quantity, products} }
     function failure(error) { return { type: productConstants.SEARCH_FAILURE, error } }
 }
 
 function errors() {
     productService.errors();
     return { type: productConstants.ERROR };
-}
+} 
 
-// function register(user) {
-//     return dispatch => {
-//         dispatch(request(user));
-
-//         userService.register(user)
-//             .then(
-//                 user => { 
-//                     dispatch(success());
-//                     history.push('/login');
-//                     dispatch(alertActions.success('Registration successful'));
-//                 },
-//                 error => {
-//                     dispatch(failure(error.toString()));
-//                     dispatch(alertActions.error(error.toString()));
-//                 }
-//             );
-//     };
-
-//     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-//     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-//     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
-// }
-
-function getAll(page, token) {
+function getAll(token) {
     return dispatch => { 
         dispatch(request()); 
         if(isExistToken()){
-            productService.getAll(page, token)
+            productService.getAll(token)
             .then(
-                products => dispatch(success(products)),
+                data => dispatch(success(data.products)),
                 error => dispatch(failure(error.toString()))
             ); 
         } 
@@ -80,13 +58,30 @@ function getAll(page, token) {
     function failure(error) { return { type: productConstants.GETALL_FAILURE, error } }
 }
 
+function getPerPage(query, page, per_page, token) { 
+    return dispatch => { 
+        dispatch(request(query)); 
+        if(isExistToken()){
+            productService.getPerPage(query, page, per_page, token)
+            .then(
+                data => dispatch(success(query, data.quantity, data.products)),
+                error => dispatch(failure(error.toString()))
+            ); 
+        } 
+    };
+
+    function request(query) { return { type: productConstants.GETPER_REQUEST, query } }
+    function success(query, quantity, products) { return { type: productConstants.GETPER_SUCCESS, query, quantity, products } }
+    function failure(error) { return { type: productConstants.GETPER_FAILURE, error } }
+}
+
 function getById(id, token) {
     return dispatch => {
         dispatch(request());
         if(isExistToken()){
             productService.getById(id, token)
                 .then(
-                    product => dispatch(success(product)),
+                    data => dispatch(success(data.product)),
                     error => dispatch(failure(error.toString()))
                 );
         }
