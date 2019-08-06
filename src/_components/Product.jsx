@@ -77,64 +77,45 @@ class Product extends React.Component {
     render() {
         const { data } = this.props;
         let {modalShow} = this.state;  
-        const started_date   = new Date(parseInt(data?data.start_date:0)*1000).toLocaleDateString("en-US")
-        const started_time   = new Date(parseInt(data?data.start_date:0)*1000).toLocaleTimeString("en-US") 
+        const started_date   = new Date(parseInt(data?data.start_date:1564642800)*1000).toLocaleDateString("en-US") 
         return ( 
                 <Card className="product" key={data._id['$oid']+'in'} style={{margin:0,padding:0,borderRadius:0}}> 
                     <Card.Body style={{padding:'0px'}}>
-                        <Card.Img onClick={() => this.setState({modalShow:true})} style={{width:'100%',height:'35vh',borderRadius:'0%',marginTop:'0px'}} src={ data.snap_shot.original_image_url} alt="" /> 
-                        
-                        {/* <LazyLoadImage
-                            alt=''
-                            height='100'
-                            src={data.snap_shot.original_image_url}
-                            effect="blur" 
-                            delayTime="500"
-                            // use normal <img> attributes as props
-                            width='35px'
-                             /> */}
-                             {/* <Card.Title>
-                            {data.snap_shot.title !=='title' &&
-                                <h4  style={{fontSize:'10px'}}><strong>{data.snap_shot.title}</strong></h4> 
-                            } 
-                        </Card.Title>
-                        
-                        <Card.Text>  
-                            
-                        </Card.Text>  */}
+                        <Card.Img onClick={() => this.setState({modalShow:true})} style={{width:'100%',height:'35vh',borderRadius:'0%',marginTop:'0px'}} src={ data.image_url_product} alt="" /> 
+                         
                         <Media>
                             <img
                                 width={50}
                                 height={50}
                                 className="m-2"
-                                src={data.snap_shot.page_profile_picture_url}
-                                alt={data.snap_shot.page_name}
+                                src={data.image_url_product}
+                                alt={data.page_name}
                             />
-                            <Media.Body className="m-2">
-                                {/* <h5 style={{fontSize:'12px'}}> 
-                                    <b>{data.snap_shot.page_name} </b><br/>
-                                    <i > {started_date+' '+started_time}</i>
-                                </h5>
-                                { data.tags && this.buildTag() }  */}
+                            <Media.Body className="m-2"> 
+                                {/* { data.tags && this.buildTag() }  */}
                                 <span>
                                     <Image alt="" src="./images/icons/link.svg" style={{width:'12px', height:'12px'}}/>
-                                    <a style={{fontSize:'11px'}} href={data.snap_shot.link_url}>{data.snap_shot.link_url.length >= 25?data.snap_shot.link_url.slice(0, 20) + "…" + data.snap_shot.link_url.slice(-5):data.snap_shot.link_url }</a>  
+                                    <a style={{fontSize:'11px'}} href={data.link_url}>{data.link_url.length >= 25?data.link_url.slice(0, 20) + "…" + data.link_url.slice(-5):data.link_url }</a>  
                                 </span><br/>
                                 <span>
                                     <Image alt="" src="./images/icons/identification.svg" style={{width:'12px', height:'12px'}}/>
-                                    <a style={{fontSize:'11px'}} href={data.snap_shot.page_profile_uri}> {data.snap_shot.page_profile_uri.length >= 25?data.snap_shot.page_profile_uri.slice(0, 20) + "…" + data.snap_shot.page_profile_uri.slice(-5):data.snap_shot.page_profile_uri }</a>  
+                                    <a style={{fontSize:'11px'}} href={data.image_url_profile}> {data.image_url_profile.length >= 25?data.image_url_profile.slice(0, 20) + "…" + data.image_url_profile.slice(-5):data.image_url_profile }</a>  
                                 </span><br/>
                                 <span>
                                     <Image alt="" src="./images/icons/more.svg" style={{width:'12px', height:'12px'}}/>
-                                    <span style={{fontSize:'11px'}}> {data.snap_shot.page_id}</span>  
-                                </span><br/>
+                                    <span style={{fontSize:'11px'}}> {data.page_id}</span>  
+                                </span><br/> 
                                 <span>
                                     <Image alt="" src="./images/icons/more.svg" style={{width:'12px', height:'12px'}}/>
-                                    <span style={{fontSize:'11px'}}>Ad_id: {data.ad_id}</span>  
-                                </span><br/>
+                                    { data.post_id === 'post_id' ? 
+                                        <span style={{fontSize:'11px'}}>Ad id: {data.ad_id}</span>   
+                                    :
+                                        <span style={{fontSize:'11px'}}>Post id: {data.post_id}</span> 
+                                    }
+                                </span> <br/>
                                 <span>
                                     <Image alt="" src="./images/icons/pie-chart.svg" style={{width:'12px', height:'12px'}}/>
-                                    <span style={{fontSize:'11px'}}> {started_date+' '+started_time}</span>  
+                                    <span style={{fontSize:'11px'}}> {started_date}</span>  
                                 </span><br/>
                                 <span>
                                     <Image alt="" src="./images/icons/enter.svg" style={{width:'12px', height:'12px'}}/>
@@ -142,7 +123,7 @@ class Product extends React.Component {
                                 </span><br/>
                                 <span>
                                     <Image alt="" src="./images/icons/enter.svg" style={{width:'12px', height:'12px'}}/>
-                                    <span style={{fontSize:'11px'}}> <a href={'/insight/'+ data._id['$oid']}>More</a></span>  
+                                    <span style={{fontSize:'11px'}}> <a  href={'/insight/'+ data._id['$oid']} target="_blank" rel="noopener noreferrer">More</a></span>  
                                 </span><br/>
                             </Media.Body>
                            
@@ -151,38 +132,55 @@ class Product extends React.Component {
                     <Modal  show={modalShow} onHide={() => this.setState({modalShow:false})} aria-labelledby="contained-modal-title-vcenter" size="lg">
                         <Modal.Header closeButton={() => this.setState({modalShow:false})} >
                         <Modal.Title id="contained-modal-title-vcenter">
-                        <h5 className="product-item"><img src={data.snap_shot.original_image_url} alt="" style={{textAlign:'center',width:'30px', height:'30px', borderRadius:'100%'}} /> <i>{data.snap_shot.page_name}</i></h5>
-                            {data.snap_shot.title !=='title'?
-                                <h3 className="product-item"><strong>{data.snap_shot.title}</strong></h3>
+                        <h5><img src={data.image_url_product} alt="" style={{textAlign:'center',width:'30px', height:'30px', borderRadius:'100%'}} /> <i>{data.page_name}</i></h5>
+                            {data.title !=='title'?
+                                <h3><strong>{data.title}</strong></h3>
                             :
                                 <span></span>
-                            }
+                            } 
+                            <span className="social-icon-product p-1">
+                                <Badge variant="success" >
+                                    <Image alt="" src="./images/icons/like.svg"  className="tag-social"/>
+                                    <span>{data.number_of_like}</span>
+                                </Badge>
+                                <Badge variant="success" >
+                                    <Image alt="" src="./images/icons/comments.svg" className="tag-social" /> 
+                                    <span>{data.number_of_comment}</span>
+                                </Badge>
+                                <Badge variant="success">
+                                    <Image alt="" src="./images/icons/share.svg" className="tag-social" />
+                                    <span>{data.number_of_share}</span>
+                                </Badge>
+                            </span>
                             
                         </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Container> 
-                                { data.view !== 'view' && data.currency !== 'currency' &&
-                                <Row className="show-grid">
-                                    <Col lg={6} xs={6}>
-                                        <h5>View</h5>
-                                        <hr></hr>
-                                        <span>{data.view}</span>
-                                    </Col>
-                                    <Col lg={6} xs={6}>
-                                        <h5>Money</h5>
-                                        <hr></hr>
-                                        <span>{data.price + data.currency}</span>
-                                    </Col>
-                                </Row>
-                                } 
+                                <hr></hr>
+                                { data.view !== 'view' && data.currency !== 'currency' ?
+                                    <Row className="show-grid">
+                                        <Col lg={6} xs={6}>
+                                            <h5>View</h5>
+                                            <hr></hr>
+                                            <span>{data.view}</span>
+                                        </Col>
+                                        <Col lg={6} xs={6}>
+                                            <h5>Money</h5>
+                                            <hr></hr>
+                                            <span>{data.price + data.currency}</span>
+                                        </Col>
+                                    </Row>
+                                :    
+                                    <Row className="show-grid"> - </Row>    
+                                }  
                                 <hr></hr>
                                 <Row className="show-grid">
                                     <Col xs={4} md={5}> 
-                                        <img className="product-item" src={ data.snap_shot.original_image_url} alt="" /> 
+                                        <img src={ data.image_url_mockup} alt="" /> 
                                     </Col>
                                     <Col xs={8} md={7}>
-                                        <i className="product-item">{started_date}</i>
+                                        <i>{started_date}</i>
                                         <XYPlot margin={{top:30, bottom: 30}} xType="ordinal" width={300} height={300}>
                                             <VerticalGridLines />
                                             <HorizontalGridLines />
@@ -196,11 +194,11 @@ class Product extends React.Component {
                                 </Row>
                                 <hr></hr>
                                 <Row className="show-grid"> 
-                                    {data.snap_shot.link_description.substring(0,300)}   
+                                    {data.description.substring(0,300)}   
                                 </Row>
                                 
                                 <Row className="show-grid">
-                                    { data.snap_shot.link_url !=='link_url' && <a className="product-item" href={data.snap_shot.link_url}>{data.snap_shot.link_url}</a> }  
+                                    More Infomation: { data.link_url !=='link_url' && <a href={data.link_url}> {data.link_url} </a> }  
                                 </Row>  
                             </Container>
                         </Modal.Body>

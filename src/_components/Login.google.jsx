@@ -29,7 +29,7 @@ class LoginGoogle extends React.Component {
     
     render() { 
         const responseGoogle = (response) => {
-            if(response){
+            if(response && response.profileObj && response.profileObj.googleId){
                 this.setState({
                     accessToken: response.accessToken,
                     googleId: response.profileObj.googleId,

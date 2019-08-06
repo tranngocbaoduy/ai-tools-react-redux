@@ -1,7 +1,7 @@
 import React, { Component } from 'react'  
 import {connect} from 'react-redux' 
 import '../assets/css/filter.css';
-import {Image, Row, FormGroup, Button, Col, Card, Form ,InputGroup,FormControl} from 'react-bootstrap'
+import {Image, Row, FormGroup, Button, Col, Form ,InputGroup,FormControl} from 'react-bootstrap'
 import {productActions} from '../_actions/product.actions'  
 
 class Filter extends Component{ 

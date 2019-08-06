@@ -1,7 +1,7 @@
 import { userConstants } from '../_constants';
 import { userService } from '../_services';
 import { alertActions } from './';
-import { history, isExistToken} from '../_helpers'; 
+import { history} from '../_helpers'; 
 
 export const userActions = {
     login, 
@@ -108,14 +108,12 @@ function reset_password(password,token){
 
 function getAll(token) {
     return dispatch => {
-        dispatch(request()); 
-        if(isExistToken()){
-            userService.getAll(token)
-                .then(
-                    users => dispatch(success(users)),
-                    error => dispatch(failure(error.toString()))
-                ); 
-        }
+        dispatch(request());  
+        userService.getAll(token)
+            .then(
+                users => dispatch(success(users)),
+                error => dispatch(failure(error.toString()))
+            );  
     };
 
     function request() { return { type: userConstants.GETALL_REQUEST } }
@@ -125,14 +123,12 @@ function getAll(token) {
 
 function getByEmail(email, token) {
     return dispatch => {
-        dispatch(request()); 
-        if(isExistToken()){
-            userService.getByEmail(email, token)
+        dispatch(request());  
+        userService.getByEmail(email, token)
             .then(
                 user => dispatch(success(user)), 
                 error => dispatch(failure(error.toString())) 
-            ); 
-        } 
+            );  
     };
 
     function request() { return { type: userConstants.GET_REQUEST } }

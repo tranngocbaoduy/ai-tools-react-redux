@@ -55,11 +55,11 @@ class ResultSearchProduct extends Component {
           }
         <Row style={{padding: '0px',margin:0}} key='row-ad' > 
             {items && items.map(item=> 
-              item.snap_shot.original_image_url !== "original_image_url" && 
+              item.image_url_product !== "original_image_url" && 
               // item.snap_shot.link_url !== "link_url" && 
               // item.snap_shot.page_profile_uri !== "page_profile_uri" && 
-                <div style={{margin:'0.5%',width:'19%'}} key={item.ad_id+'out'}>
-                  <LazyLoad key={item.ad_id}
+                <div className="product-item" key={item._id['$oid']+'out'}>
+                  <LazyLoad key={item.ad_id+'product'}
                             height={500}
                             offset={[-200,200]} 
                             placeholder={

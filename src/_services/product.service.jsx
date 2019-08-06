@@ -1,6 +1,7 @@
 // import { authHeader } from '../_helpers';
 import axios from 'axios'; 
 import { domain } from './'
+import { history } from '../_helpers'
 
 export const productService = {
     search, 
@@ -138,14 +139,17 @@ async function getById(id, token) {
 // }
 
 function handleResponse(response) {
-    const data = response.data  
+    const data = response.data   
     if (!data.status) {  
         if (response.status === 401 || response.status === 500) { 
             errors(); 
+        } 
+        if(data.message === "Unauthorized"){ 
+            history.push('/login') 
         }
-
-        const error = (data && data.message) || response.statusText; 
+        const error = (data && data.message) || response.statusText;  
         return Promise.reject(error);
     }  
+  
     return data.payload; 
 }

@@ -1,8 +1,7 @@
 
 import { productConstants } from '../_constants';
 import { productService } from '../_services';
-import { alertActions } from './';
-import { isExistToken } from '../_helpers'
+import { alertActions } from './'; 
 
 export const productActions = {
     search,
@@ -16,8 +15,7 @@ export const productActions = {
 
 function search(query, page, per_page, token) {
     return dispatch => {
-        dispatch(request( query ));
-        if(isExistToken()){
+        dispatch(request( query )); 
             productService.search(query, page, per_page, token)
                 .then(
                     data => {  
@@ -27,8 +25,7 @@ function search(query, page, per_page, token) {
                         dispatch(failure(error.toString()));
                         dispatch(alertActions.error(error.toString()));
                     }
-                );
-        } 
+                ); 
     };
 
     function request(query) { return { type: productConstants.SEARCH_REQUEST, query } }
@@ -43,14 +40,12 @@ function errors() {
 
 function getAll(token) {
     return dispatch => { 
-        dispatch(request()); 
-        if(isExistToken()){
-            productService.getAll(token)
+        dispatch(request());  
+        productService.getAll(token)
             .then(
                 data => dispatch(success(data.products)),
                 error => dispatch(failure(error.toString()))
-            ); 
-        } 
+            );  
     };
 
     function request() { return { type: productConstants.GETALL_REQUEST } }
@@ -60,14 +55,12 @@ function getAll(token) {
 
 function getPerPage(query, page, per_page, token) { 
     return dispatch => { 
-        dispatch(request(query)); 
-        if(isExistToken()){
-            productService.getPerPage(query, page, per_page, token)
+        dispatch(request(query));  
+        productService.getPerPage(query, page, per_page, token)
             .then(
                 data => dispatch(success(query, data.quantity, data.products)),
                 error => dispatch(failure(error.toString()))
-            ); 
-        } 
+            );  
     };
 
     function request(query) { return { type: productConstants.GETPER_REQUEST, query } }
@@ -77,14 +70,12 @@ function getPerPage(query, page, per_page, token) {
 
 function getById(id, token) {
     return dispatch => {
-        dispatch(request());
-        if(isExistToken()){
-            productService.getById(id, token)
-                .then(
-                    data => dispatch(success(data.product)),
-                    error => dispatch(failure(error.toString()))
-                );
-        }
+        dispatch(request()); 
+        productService.getById(id, token)
+            .then(
+                data => dispatch(success(data.product)),
+                error => dispatch(failure(error.toString()))
+            ); 
     };
 
     function request() { return { type: productConstants.GET_REQUEST } }
