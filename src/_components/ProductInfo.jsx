@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
 import { productActions } from '../_actions' 
-import { Spinner, Col,Card, Button, Image, Jumbotron, Badge, Row } from 'react-bootstrap'
+import { Spinner, Col,Card, Image, Jumbotron, Badge, Row } from 'react-bootstrap'
 import { history } from '../_helpers' 
 import { VerticalBarSeries} from 'react-vis';
 import  {LineChart, PieChart}  from './charts'

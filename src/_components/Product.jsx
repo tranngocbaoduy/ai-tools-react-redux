@@ -77,7 +77,13 @@ class Product extends React.Component {
     render() {
         const { data } = this.props;
         let {modalShow} = this.state;  
-        const started_date   = new Date(parseInt(data?data.start_date:1564642800)*1000).toLocaleDateString("en-US") 
+        let started_date = 0;
+        if (data.post_id === "post_id"){
+            started_date = data.start_date;
+        }else{
+            started_date   = new Date(parseInt(data.start_date)*1000).toLocaleDateString("en-US") 
+        }
+       
         return ( 
                 <Card className="product" key={data._id['$oid']+'in'} style={{margin:0,padding:0,borderRadius:0}}> 
                     <Card.Body style={{padding:'0px'}}>
@@ -88,7 +94,7 @@ class Product extends React.Component {
                                 width={50}
                                 height={50}
                                 className="m-2"
-                                src={data.image_url_product}
+                                src={data.image_url_profile}
                                 alt={data.page_name}
                             />
                             <Media.Body className="m-2"> 
@@ -132,7 +138,7 @@ class Product extends React.Component {
                     <Modal  show={modalShow} onHide={() => this.setState({modalShow:false})} aria-labelledby="contained-modal-title-vcenter" size="lg">
                         <Modal.Header closeButton={() => this.setState({modalShow:false})} >
                         <Modal.Title id="contained-modal-title-vcenter">
-                        <h5><img src={data.image_url_product} alt="" style={{textAlign:'center',width:'30px', height:'30px', borderRadius:'100%'}} /> <i>{data.page_name}</i></h5>
+                        <h5><img src={data.image_url_mockup} alt="" style={{textAlign:'center',width:'30px', height:'30px', borderRadius:'100%'}} /> <i>{data.page_name}</i></h5>
                             {data.title !=='title'?
                                 <h3><strong>{data.title}</strong></h3>
                             :
